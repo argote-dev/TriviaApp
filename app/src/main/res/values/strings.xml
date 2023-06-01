@@ -11,4 +11,5 @@
     <string name="text_nickname">Player %d: %s</string>
     <string name="text_title_answer_player_1">Answer player 1</string>
     <string name="text_title_answer_player_2">Answer player 2</string>
+    <string name="text_error_nickname">Please, digit a nickname.</string>
 </resources>

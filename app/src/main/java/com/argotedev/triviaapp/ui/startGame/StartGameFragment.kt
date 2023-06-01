@@ -33,12 +33,18 @@ class StartGameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnStratGame.setOnClickListener {
-            val game = viewModel.startGame()
-            starGameRouter.replace(
-                requireActivity().supportFragmentManager,
-                R.id.containerFragment,
-                game as Trivia
-            )
+            if (viewModel.nicknamePlayerOne.value.isNullOrBlank()) {
+                binding.inputNicknameOne.error = getString(R.string.text_error_nickname)
+            } else if (viewModel.nicknamePlayerTwo.value.isNullOrBlank()) {
+                binding.inputNicknameTwo.error = getString(R.string.text_error_nickname)
+            } else {
+                val game = viewModel.startGame()
+                starGameRouter.replace(
+                    requireActivity().supportFragmentManager,
+                    R.id.containerFragment,
+                    game as Trivia
+                )
+            }
         }
 
         binding.inputNicknameOne.addTextChangedListener { editable ->
