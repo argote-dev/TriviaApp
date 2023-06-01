@@ -1,19 +1,23 @@
 package com.argotedev.triviaapp.ui.startGame
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.argotedev.triviaapp.R
 import com.argotedev.triviaapp.databinding.FragmentStartGameBinding
+import com.argotedev.triviaapp.model.Trivia
+import com.argotedev.triviaapp.ui.inGame.GameRouter
 
 class StartGameFragment : Fragment() {
 
     private lateinit var binding: FragmentStartGameBinding
     private val viewModel: StartGameViewModel by viewModels()
+
+    private lateinit var starGameRouter: GameRouter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,6 +25,7 @@ class StartGameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentStartGameBinding.inflate(layoutInflater, container, false)
+        starGameRouter = GameRouter()
         return binding.root
     }
 
@@ -28,7 +33,12 @@ class StartGameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnStratGame.setOnClickListener {
-            viewModel.startGame()
+            val game = viewModel.startGame()
+            starGameRouter.replace(
+                requireActivity().supportFragmentManager,
+                R.id.containerFragment,
+                game as Trivia
+            )
         }
 
         binding.inputNicknameOne.addTextChangedListener { editable ->

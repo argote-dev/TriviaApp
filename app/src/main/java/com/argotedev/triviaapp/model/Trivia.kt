@@ -1,9 +1,8 @@
-package com.argotedev.triviaapp.logic
+package com.argotedev.triviaapp.model
 
-import kotlinx.serialization.Serializable
+import com.google.gson.Gson
 
-@Serializable
-class Trivia(private val players: List<Player>) : Game {
+class Trivia(val players: List<Player>) : Game {
 
     override fun winnerRound(id: Int, score: Int) {
         val player = players.first { it.id == id}
@@ -19,4 +18,13 @@ class Trivia(private val players: List<Player>) : Game {
     override fun endGame() {
         players.forEach { player -> player.resetScore()  }
     }
+
+}
+
+fun Trivia.toJsonString(): String {
+    return Gson().toJson(this)
+}
+
+fun String.toTriviaObject(): Trivia {
+    return Gson().fromJson(this, Trivia::class.java)
 }

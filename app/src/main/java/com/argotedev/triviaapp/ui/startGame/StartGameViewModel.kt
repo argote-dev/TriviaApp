@@ -3,9 +3,9 @@ package com.argotedev.triviaapp.ui.startGame
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.argotedev.triviaapp.logic.Game
-import com.argotedev.triviaapp.logic.Player
-import com.argotedev.triviaapp.logic.Trivia
+import com.argotedev.triviaapp.model.Game
+import com.argotedev.triviaapp.model.Player
+import com.argotedev.triviaapp.model.Trivia
 
 class StartGameViewModel : ViewModel() {
 

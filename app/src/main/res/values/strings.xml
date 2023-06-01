@@ -3,4 +3,12 @@
     <string name="title_input_nickname_one">Nickname one</string>
     <string name="title_input_nickname_two">Nickname two</string>
     <string name="text_start_game">Start Game</string>
+    <string name="text_exit_game">Exit game</string>
+    <string name="text_next_question">Next question</string>
+    <string name="text_quantity_questions">%d/%d</string>
+    <string name="text_title_alert">Winner!</string>
+    <string name="text_body_alert">%s win!</string>
+    <string name="text_nickname">Player %d: %s</string>
+    <string name="text_title_answer_player_1">Answer player 1</string>
+    <string name="text_title_answer_player_2">Answer player 2</string>
 </resources>

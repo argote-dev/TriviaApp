@@ -1,4 +1,4 @@
-package com.argotedev.triviaapp.logic
+package com.argotedev.triviaapp.model
 
 interface Game {
     fun winnerRound(id: Int, score: Int)

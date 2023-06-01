@@ -1,8 +1,5 @@
-package com.argotedev.triviaapp.logic
+package com.argotedev.triviaapp.model
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Player(
     val id: Int,
     val nickname: String,
