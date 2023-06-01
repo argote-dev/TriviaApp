@@ -1,4 +1,4 @@
-package com.argotedev.triviaapp.ui.inGame.adapter
+package com.argotedev.triviaapp.ui.inGame.adapter.listener
 
 import com.argotedev.triviaapp.model.Answer
 

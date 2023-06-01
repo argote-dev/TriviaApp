@@ -18,7 +18,7 @@ import com.argotedev.triviaapp.model.PlayerAnswer
 import com.argotedev.triviaapp.model.Question
 import com.argotedev.triviaapp.model.toTriviaObject
 import com.argotedev.triviaapp.ui.inGame.adapter.AnswerAdapter
-import com.argotedev.triviaapp.ui.inGame.adapter.AnswerListener
+import com.argotedev.triviaapp.ui.inGame.adapter.listener.AnswerListener
 import com.argotedev.triviaapp.ui.inGame.state.GameState
 import com.argotedev.triviaapp.ui.startGame.StartGameRouter
 import com.argotedev.triviaapp.utils.VibrationManager
@@ -131,6 +131,14 @@ class GameFragment : Fragment() {
                     binding.btnNextQuestion.isEnabled = true
                 }
             }
+        }
+
+        viewModel.counter.observe(viewLifecycleOwner) { counter ->
+            binding.tvQuantityQuestions.text = getString(
+                R.string.text_quantity_questions,
+                counter,
+                viewModel.getNumberOfQuestions()
+            )
         }
 
     }

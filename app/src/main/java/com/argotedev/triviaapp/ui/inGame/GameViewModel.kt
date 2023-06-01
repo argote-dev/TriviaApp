@@ -26,6 +26,9 @@ class GameViewModel : ViewModel() {
     private var _answers = MutableLiveData<MutableList<PlayerAnswer>>()
     val answers: LiveData<MutableList<PlayerAnswer>> get() = _answers
 
+    private var _counter = MutableLiveData(0)
+    val counter: LiveData<Int> get() = _counter
+
     private var answerMutable = mutableListOf<PlayerAnswer>()
 
     fun setGame(game: Trivia) {
@@ -35,6 +38,7 @@ class GameViewModel : ViewModel() {
     fun firstQuestion(): Question? {
         if (questions.isNotEmpty()) {
             _gameState.value = GameState.STARTED
+            _counter.value = 1
             return questions[0]
         }
         return null
@@ -46,6 +50,7 @@ class GameViewModel : ViewModel() {
             val nextIndex = beforeIndex + 1
             changeScore(question)
             cleanAnswer()
+            _counter.value = _counter.value?.plus(1)
             return questions[nextIndex]
         }
         _gameState.value = GameState.FINISHED
@@ -83,5 +88,7 @@ class GameViewModel : ViewModel() {
         answerMutable = mutableListOf()
         _answers.postValue(mutableListOf())
     }
+
+    fun getNumberOfQuestions() = questions.size
 
 }

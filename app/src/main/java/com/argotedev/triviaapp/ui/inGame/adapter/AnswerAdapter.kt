@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.argotedev.triviaapp.R
 import com.argotedev.triviaapp.databinding.ItemAnswerBinding
 import com.argotedev.triviaapp.model.Answer
+import com.argotedev.triviaapp.ui.inGame.adapter.listener.AnswerListener
 
 class AnswerAdapter(
     private val answers: List<Answer>,
