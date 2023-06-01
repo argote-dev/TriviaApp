@@ -30,6 +30,7 @@ class GameRouter: BaseFragmentRouter {
 
     fun replace(manager: FragmentManager, containerId: Int, startGame: Trivia) {
         manager.beginTransaction()
+            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
             .replace(containerId, fragmentStartGame(startGame.toJsonString()))
             .commit()
     }
