@@ -24,13 +24,9 @@ class StartGameViewModel : ViewModel() {
         _nicknamePlayerTwo.value = nickname
     }
 
-    fun startGame(): Game {
-        return Trivia(
-            listOf(
-                Player(1, _nicknamePlayerOne.value.toString(), 0, 0),
-                Player(2, _nicknamePlayerTwo.value.toString(), 0, 0)
-            )
-        )
-    }
+    fun players(): ArrayList<Player> = listOf(
+        Player(1, _nicknamePlayerOne.value.toString(), 0, 0),
+        Player(2, _nicknamePlayerTwo.value.toString(), 0, 0)
+    ) as ArrayList<Player>
 
 }
