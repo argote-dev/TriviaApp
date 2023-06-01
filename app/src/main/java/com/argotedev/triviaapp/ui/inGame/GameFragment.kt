@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,7 @@ class GameFragment : Fragment() {
     private lateinit var vibrateManager: VibrationManager
 
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var countDownTimer: CountDownTimer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -53,6 +55,18 @@ class GameFragment : Fragment() {
             GameRouter.game(arguments)?.let { trivia ->
                 viewModel.setGame(trivia.toTriviaObject())
             }
+        }
+
+        countDownTimer = object : CountDownTimer(30000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val progress = (millisUntilFinished / 30000.0 * 100).toInt()
+                binding.pbTime.progress = progress
+            }
+
+            override fun onFinish() {
+                binding.pbTime.progress = 0
+            }
+
         }
 
         viewModel.firstQuestion()?.let { question ->
@@ -75,17 +89,19 @@ class GameFragment : Fragment() {
         }
 
         viewModel.gameState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                GameState.STARTED -> {
-                    mediaPlayer.start()
-                }
+            state?.let { gameState ->
+                when (gameState) {
+                    GameState.STARTED -> {
+                        mediaPlayer.start()
+                    }
 
-                GameState.PAUSED -> {
-                    mediaPlayer.pause()
-                }
+                    GameState.PAUSED -> {
+                        mediaPlayer.pause()
+                    }
 
-                GameState.FINISHED -> {
-                    viewModel.showWinner()
+                    GameState.FINISHED -> {
+                        viewModel.showWinner()
+                    }
                 }
             }
         }
@@ -121,6 +137,7 @@ class GameFragment : Fragment() {
 
     private fun paintQuestion(question: Question) {
         binding.tvQuestion.text = question.title
+        countDownTimer.start()
 
         with(binding.rvAnswersOne) {
             layoutManager =
@@ -151,6 +168,7 @@ class GameFragment : Fragment() {
         binding.btnNextQuestion.setOnClickListener {
             viewModel.nextQuestion(question)?.let { newQuestion ->
                 binding.btnNextQuestion.isEnabled = false
+                countDownTimer.cancel()
                 paintQuestion(newQuestion)
             }
         }
@@ -172,6 +190,7 @@ class GameFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         mediaPlayer.pause()
+        countDownTimer.cancel()
     }
 
     override fun onDestroy() {
